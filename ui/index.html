@@ -250,12 +250,12 @@
         
         // 当前用户和 Agent（从 URL 参数或默认值）
         const urlParams = new URLSearchParams(window.location.search);
-        const currentUser = urlParams.get('user') || 'default';
         const currentAgent = urlParams.get('agent') || 'main';
+        const currentUser = urlParams.get('user') || 'default';
 
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
-            // 显示用户信息
+            // 显示 Agent 信息
             document.getElementById('user-id').textContent = currentUser;
             document.getElementById('agent-id').textContent = currentAgent;
             
@@ -271,7 +271,7 @@
         // 加载所有记忆并按日期分组
         async function loadAllMemories() {
             try {
-                const resp = await fetch(`${API}/memories?limit=500`);
+                const resp = await fetch(`${API}/memories?limit=500&agent=${currentAgent}`);
                 const data = await resp.json();
                 allMemories = data.memories || [];
                 
