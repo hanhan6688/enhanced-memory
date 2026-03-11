@@ -7,6 +7,7 @@
 import os
 import sys
 import json
+import requests
 from datetime import datetime
 from flask import Flask, request, jsonify, send_file
 
@@ -15,8 +16,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
 from api.memory_api import get_memory_system
 
-# UI 文件路径
+# 配置
 UI_FILE = os.path.join(BASE_DIR, 'ui', 'index.html')
+WEAVIATE_URL = os.environ.get("WEAVIATE_URL", "http://localhost:8080")
 
 app = Flask(__name__)
 
