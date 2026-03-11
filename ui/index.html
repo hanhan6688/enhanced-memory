@@ -190,24 +190,35 @@
         .word-cloud-title {
             font-size: 12px; color: #888; margin-bottom: 8px;
         }
-        #word-cloud {
-            width: 100%; height: 180px; 
-            background: rgba(0,0,0,0.2); border-radius: 8px;
+        #knowledge-graph {
+            width: 100%; height: 220px; 
+            background: rgba(0,0,0,0.3); border-radius: 8px;
             position: relative; overflow: hidden;
         }
-        .word-item {
+        
+        /* Graph Canvas */
+        #graph-canvas {
+            width: 100%; height: 100%;
+        }
+        
+        /* Node styles */
+        .graph-node {
             position: absolute; cursor: pointer;
-            transition: all 0.3s; font-weight: 600;
-            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            transition: all 0.3s; text-align: center;
         }
-        .word-item:hover {
-            transform: scale(1.1);
-            z-index: 10;
+        .graph-node:hover { transform: scale(1.1); z-index: 10; }
+        .node-circle {
+            width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 4px; font-size: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
-        .word-tool { color: #4fc3f7; }
-        .word-project { color: #81c784; }
-        .word-concept { color: #ce93d8; }
-        .word-person { color: #ffb74d; }
+        .node-circle.tool { background: linear-gradient(135deg, #4fc3f7, #29b6f6); }
+        .node-circle.project { background: linear-gradient(135deg, #81c784, #66bb6a); }
+        .node-circle.concept { background: linear-gradient(135deg, #ce93d8, #ba68c8); }
+        .node-circle.platform { background: linear-gradient(135deg, #ffb74d, #ffa726); }
+        .node-name { font-size: 10px; color: #e0e0e0; }
+        .node-count { font-size: 8px; color: #888; }
         
         /* Empty */
         .empty { text-align: center; padding: 30px 16px; color: #666; }
@@ -306,10 +317,12 @@
             <div class="panel graph-panel">
                 <div class="panel-header">🕸️ 知识图谱</div>
                 
-                <!-- Word Cloud -->
+                <!-- Knowledge Graph Visualization -->
                 <div class="word-cloud-container">
-                    <div class="word-cloud-title">实体词云图</div>
-                    <div id="word-cloud"></div>
+                    <div class="word-cloud-title">实体关系图</div>
+                    <div id="knowledge-graph">
+                        <canvas id="graph-canvas"></canvas>
+                    </div>
                 </div>
                 
                 <!-- Entity Search -->
@@ -525,7 +538,7 @@
                 return;
             }
             
-            const icons = {tool: '🔧', project: '📦', concept: '💡', person: '👤'};
+            const icons = {tool: '🔧', project: '📦', concept: '💡', platform: '📱'};
             
             container.innerHTML = entities.map(e => `
                 <div class="entity-item" onclick="showEntityDetail('${escapeHtml(e.name)}', '${e.entityType}')">
@@ -537,76 +550,117 @@
                 </div>
             `).join('');
             
-            // 渲染词云图
-            renderWordCloud(entities);
+            // 渲染知识图谱
+            renderKnowledgeGraph(entities);
         }
         
-        // Render Word Cloud
-        function renderWordCloud(entities) {
-            const container = document.getElementById('word-cloud');
+        // Render Knowledge Graph
+        function renderKnowledgeGraph(entities) {
+            const container = document.getElementById('knowledge-graph');
+            const canvas = document.getElementById('graph-canvas');
+            
             if (!entities.length) {
                 container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#666">暂无数据</div>';
                 return;
             }
             
+            const ctx = canvas.getContext('2d');
             const width = container.offsetWidth || 240;
-            const height = container.offsetHeight || 180;
+            const height = container.offsetHeight || 220;
+            
+            canvas.width = width;
+            canvas.height = height;
+            
             const centerX = width / 2;
             const centerY = height / 2;
+            const radius = Math.min(width, height) / 3;
             
-            // 按提及次数排序
-            const sorted = [...entities].sort((a, b) => (b.mentionCount || 1) - (a.mentionCount || 1));
-            const maxCount = Math.max(...sorted.map(e => e.mentionCount || 1));
+            // 清空画布
+            ctx.clearRect(0, 0, width, height);
             
-            // 计算字体大小
-            const minFont = 10;
-            const maxFont = 24;
+            // 绘制连接线
+            ctx.strokeStyle = 'rgba(79, 195, 247, 0.3)';
+            ctx.lineWidth = 1;
             
-            // 螺旋布局
-            const positions = [];
-            let angle = 0;
-            let radius = 0;
-            
-            sorted.forEach((entity, i) => {
-                const count = entity.mentionCount || 1;
-                const fontSize = minFont + (maxFont - minFont) * (count / maxCount);
-                const wordWidth = entity.name.length * fontSize * 0.6;
-                const wordHeight = fontSize;
+            entities.forEach((e, i) => {
+                const angle = (i / entities.length) * 2 * Math.PI - Math.PI / 2;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
                 
-                // 螺旋排列
-                let x, y, attempts = 0;
-                const maxAttempts = 100;
+                // 绘制到中心的连线
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
                 
-                do {
-                    x = centerX + radius * Math.cos(angle) - wordWidth / 2;
-                    y = centerY + radius * Math.sin(angle) - wordHeight / 2;
-                    angle += 0.5;
-                    radius += 0.3;
-                    attempts++;
-                } while (attempts < maxAttempts && (x < 5 || x + wordWidth > width - 5 || y < 5 || y + wordHeight > height - 5));
-                
-                // 边界检查
-                x = Math.max(5, Math.min(width - wordWidth - 5, x));
-                y = Math.max(5, Math.min(height - wordHeight - 5, y));
-                
-                positions.push({
-                    entity,
-                    x,
-                    y,
-                    fontSize,
-                    color: getEntityColor(entity.entityType)
+                // 绘制实体之间的连线
+                entities.forEach((e2, j) => {
+                    if (i < j) {
+                        const angle2 = (j / entities.length) * 2 * Math.PI - Math.PI / 2;
+                        const x2 = centerX + radius * Math.cos(angle2);
+                        const y2 = centerY + radius * Math.sin(angle2);
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(x, y);
+                        ctx.lineTo(x2, y2);
+                        ctx.stroke();
+                    }
                 });
             });
             
-            // 渲染词云
-            container.innerHTML = positions.map((p, i) => `
-                <div class="word-item word-${p.entity.entityType}" 
-                     style="left:${p.x}px;top:${p.y}px;font-size:${p.fontSize}px;color:${p.color};animation:fadeIn 0.3s ease ${i * 0.05}s both"
-                     onclick="showEntityDetail('${escapeHtml(p.entity.name)}', '${p.entity.entityType}')"
-                     title="${p.entity.name} (${p.entity.entityType}) - ${p.entity.mentionCount || 1}次">
-                    ${escapeHtml(p.entity.name)}
-                </div>
-            `).join('');
+            // 绘制中心节点
+            const grad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 20);
+            grad.addColorStop(0, '#4fc3f7');
+            grad.addColorStop(1, '#29b6f6');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 15, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#1a1a2e';
+            ctx.font = 'bold 10px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🧠', centerX, centerY);
+            
+            // 绘制实体节点
+            const colors = {
+                tool: '#4fc3f7',
+                project: '#81c784',
+                concept: '#ce93d8',
+                platform: '#ffb74d'
+            };
+            const iconMap = {
+                tool: '🔧',
+                project: '📦',
+                concept: '💡',
+                platform: '📱'
+            };
+            
+            entities.forEach((e, i) => {
+                const angle = (i / entities.length) * 2 * Math.PI - Math.PI / 2;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                
+                // 绘制节点圆
+                const nodeRadius = 12 + (e.mentionCount || 1) * 2;
+                ctx.fillStyle = colors[e.entityType] || '#888';
+                ctx.beginPath();
+                ctx.arc(x, y, nodeRadius, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // 绘制图标
+                ctx.fillStyle = '#fff';
+                ctx.font = '12px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(iconMap[e.entityType] || '📌', x, y);
+                
+                // 绘制名称
+                ctx.fillStyle = '#e0e0e0';
+                ctx.font = '9px sans-serif';
+                ctx.fillText(e.name.substring(0, 4), x, y + nodeRadius + 8);
+            });
         }
         
         // Get Entity Color
@@ -615,7 +669,7 @@
                 tool: '#4fc3f7',
                 project: '#81c784',
                 concept: '#ce93d8',
-                person: '#ffb74d'
+                platform: '#ffb74d'
             };
             return colors[type] || '#e0e0e0';
         }
