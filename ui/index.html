@@ -11,22 +11,22 @@
             background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             min-height: 100vh; color: #e0e0e0;
         }
-        .container { max-width: 1600px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 1800px; margin: 0 auto; padding: 16px; }
         
         /* Header */
         header {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 16px 24px; background: rgba(255,255,255,0.05);
-            border-radius: 12px; margin-bottom: 16px;
+            padding: 12px 20px; background: rgba(255,255,255,0.05);
+            border-radius: 10px; margin-bottom: 12px;
         }
-        h1 { font-size: 24px; }
+        h1 { font-size: 20px; }
         
         /* Agent Switcher */
-        .agent-switcher { display: flex; gap: 8px; align-items: center; }
+        .agent-switcher { display: flex; gap: 6px; align-items: center; }
         .agent-btn {
-            padding: 8px 16px; border-radius: 8px; cursor: pointer;
+            padding: 6px 14px; border-radius: 6px; cursor: pointer;
             background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            color: #e0e0e0; font-size: 13px; transition: all 0.2s;
+            color: #e0e0e0; font-size: 12px; transition: all 0.2s;
         }
         .agent-btn:hover { background: rgba(255,255,255,0.1); }
         .agent-btn.active { 
@@ -34,88 +34,83 @@
             color: #1a1a2e; border-color: transparent;
         }
         .agent-add {
-            padding: 8px 12px; border-radius: 8px; cursor: pointer;
+            padding: 6px 10px; border-radius: 6px; cursor: pointer;
             background: rgba(129,199,132,0.2); border: 1px solid rgba(129,199,132,0.3);
-            color: #81c784; font-size: 13px;
+            color: #81c784; font-size: 12px;
         }
         
         /* Stats */
         .stats { display: flex; gap: 16px; }
         .stat { text-align: center; }
-        .stat-value { font-size: 24px; font-weight: bold; color: #4fc3f7; }
-        .stat-label { font-size: 11px; color: #888; }
+        .stat-value { font-size: 22px; font-weight: bold; color: #4fc3f7; }
+        .stat-label { font-size: 10px; color: #888; }
         
-        /* Main Layout */
-        .main-layout { display: grid; grid-template-columns: 300px 1fr; gap: 16px; }
+        /* Main Layout - 3 columns */
+        .main-layout { display: grid; grid-template-columns: 260px 1fr 280px; gap: 12px; }
         
         /* Panel */
         .panel {
-            background: rgba(255,255,255,0.03); border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03); border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column;
         }
         .panel-header {
-            padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.08);
-            font-weight: 600; font-size: 14px;
+            padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-weight: 600; font-size: 13px;
         }
         
         /* Calendar */
-        .calendar { padding: 12px; }
+        .calendar { padding: 10px; }
         .calendar-header {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
         .calendar-nav {
-            cursor: pointer; padding: 4px 10px; border-radius: 6px;
-            background: rgba(255,255,255,0.05);
+            cursor: pointer; padding: 3px 8px; border-radius: 4px;
+            background: rgba(255,255,255,0.05); font-size: 12px;
         }
         .calendar-nav:hover { background: rgba(255,255,255,0.1); }
-        .calendar-month { font-weight: 600; }
+        .calendar-month { font-weight: 600; font-size: 13px; }
         
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
-        .calendar-day-header {
-            text-align: center; font-size: 11px; color: #888; padding: 6px 0;
-        }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; }
+        .calendar-day-header { text-align: center; font-size: 10px; color: #888; padding: 4px 0; }
         .calendar-day {
-            text-align: center; padding: 8px 4px; font-size: 13px;
-            border-radius: 6px; cursor: pointer; transition: all 0.2s;
-            position: relative;
+            text-align: center; padding: 6px 2px; font-size: 12px;
+            border-radius: 4px; cursor: pointer; transition: all 0.2s; position: relative;
         }
         .calendar-day:hover { background: rgba(255,255,255,0.1); }
         .calendar-day.other-month { color: #444; }
         .calendar-day.today { background: rgba(129,199,132,0.2); color: #81c784; font-weight: 600; }
         .calendar-day.selected { background: #4fc3f7; color: #1a1a2e; font-weight: 600; }
         .calendar-day.has-memory::after {
-            content: ''; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%);
-            width: 4px; height: 4px; border-radius: 50%; background: #4fc3f7;
+            content: ''; position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);
+            width: 3px; height: 3px; border-radius: 50%; background: #4fc3f7;
         }
         
         /* Date List */
-        .date-list { max-height: 300px; overflow-y: auto; border-top: 1px solid rgba(255,255,255,0.08); }
+        .date-list { max-height: 200px; overflow-y: auto; border-top: 1px solid rgba(255,255,255,0.08); }
         .date-item {
-            padding: 10px 14px; cursor: pointer; transition: all 0.2s;
+            padding: 8px 12px; cursor: pointer; transition: all 0.2s;
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 12px;
         }
         .date-item:hover { background: rgba(255,255,255,0.05); }
-        .date-item.active { background: rgba(79,195,247,0.1); border-left: 3px solid #4fc3f7; }
-        .date-item-date { font-size: 13px; }
-        .date-item-count { font-size: 11px; color: #888; }
+        .date-item.active { background: rgba(79,195,247,0.1); border-left: 2px solid #4fc3f7; }
         
         /* Memory List */
-        .memory-list { padding: 12px; max-height: calc(100vh - 250px); overflow-y: auto; }
+        .memory-panel { display: flex; flex-direction: column; max-height: calc(100vh - 160px); }
+        .memory-list { flex: 1; overflow-y: auto; padding: 10px; }
         .memory-item {
-            background: rgba(255,255,255,0.02); border-radius: 10px;
-            padding: 14px 16px; margin-bottom: 10px;
-            border-left: 3px solid #4fc3f7; transition: all 0.2s;
+            background: rgba(255,255,255,0.02); border-radius: 8px;
+            padding: 10px 12px; margin-bottom: 6px;
+            border-left: 2px solid #4fc3f7; transition: all 0.2s; font-size: 13px;
         }
         .memory-item:hover { background: rgba(255,255,255,0.05); }
         .memory-item.decision { border-left-color: #ce93d8; }
         .memory-item.event { border-left-color: #81c784; }
         .memory-item.learning { border-left-color: #ffb74d; }
-        
-        .memory-content { font-size: 14px; line-height: 1.6; margin-bottom: 8px; }
-        .memory-meta { display: flex; gap: 10px; font-size: 11px; color: #888; }
-        .type-badge { padding: 2px 10px; border-radius: 10px; font-size: 10px; font-weight: 600; }
+        .memory-content { line-height: 1.5; margin-bottom: 4px; }
+        .memory-meta { display: flex; gap: 8px; font-size: 10px; color: #888; }
+        .type-badge { padding: 1px 8px; border-radius: 8px; font-size: 9px; font-weight: 600; }
         .type-badge.decision { background: rgba(206,147,216,0.2); color: #ce93d8; }
         .type-badge.event { background: rgba(129,199,132,0.2); color: #81c784; }
         .type-badge.context { background: rgba(79,195,247,0.2); color: #4fc3f7; }
@@ -123,49 +118,78 @@
         
         /* Current Date Header */
         .current-date-header {
-            padding: 12px 16px; background: rgba(79,195,247,0.1);
-            border-radius: 8px; margin: 12px; text-align: center;
+            padding: 8px 12px; background: rgba(79,195,247,0.1);
+            border-radius: 6px; margin: 8px 10px 4px; text-align: center;
         }
-        .current-date-value { font-size: 18px; font-weight: 600; color: #4fc3f7; }
-        .current-date-count { font-size: 12px; color: #888; margin-top: 4px; }
+        .current-date-value { font-size: 14px; font-weight: 600; color: #4fc3f7; }
+        .current-date-count { font-size: 11px; color: #888; margin-top: 2px; }
         
         /* Add Memory */
-        .add-memory { padding: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
+        .add-memory { padding: 10px; border-top: 1px solid rgba(255,255,255,0.08); }
         .add-memory textarea {
-            width: 100%; padding: 10px; border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px; background: rgba(255,255,255,0.05);
-            color: #fff; font-size: 13px; resize: none; height: 60px;
+            width: 100%; padding: 8px; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px; background: rgba(255,255,255,0.05);
+            color: #fff; font-size: 12px; resize: none; height: 50px;
         }
         .add-memory textarea:focus { outline: none; border-color: #4fc3f7; }
-        .add-row { display: flex; gap: 8px; margin-top: 8px; }
+        .add-row { display: flex; gap: 6px; margin-top: 6px; }
         .add-row select, .add-row input {
-            flex: 1; padding: 6px 10px; border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 6px; background: rgba(255,255,255,0.05);
-            color: #fff; font-size: 12px;
+            flex: 1; padding: 5px 8px; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px; background: rgba(255,255,255,0.05);
+            color: #fff; font-size: 11px;
         }
         .add-row select option { background: #1a1a2e; }
-        .btn {
-            padding: 8px 16px; border: none; border-radius: 6px;
-            cursor: pointer; font-size: 12px; font-weight: 500;
-        }
+        .btn { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 11px; }
         .btn-primary { background: #4fc3f7; color: #1a1a2e; }
         
         /* Search */
-        .search-box { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .search-box { padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.08); }
         .search-box input {
-            width: 100%; padding: 10px 14px; border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px; background: rgba(255,255,255,0.05);
-            color: #fff; font-size: 13px;
+            width: 100%; padding: 8px 10px; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px; background: rgba(255,255,255,0.05);
+            color: #fff; font-size: 12px;
         }
         .search-box input:focus { outline: none; border-color: #4fc3f7; }
         
+        /* Knowledge Graph Panel */
+        .graph-panel { display: flex; flex-direction: column; }
+        .entity-list { flex: 1; overflow-y: auto; padding: 10px; }
+        .entity-item {
+            display: flex; align-items: center; gap: 8px;
+            padding: 8px; background: rgba(255,255,255,0.02);
+            border-radius: 6px; margin-bottom: 4px; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .entity-item:hover { background: rgba(255,255,255,0.05); }
+        .entity-icon {
+            width: 28px; height: 28px; border-radius: 6px;
+            display: flex; align-items: center; justify-content: center; font-size: 14px;
+        }
+        .entity-icon.tool { background: rgba(79,195,247,0.2); }
+        .entity-icon.project { background: rgba(129,199,132,0.2); }
+        .entity-icon.concept { background: rgba(206,147,216,0.2); }
+        .entity-name { font-size: 12px; font-weight: 500; }
+        .entity-meta { font-size: 10px; color: #888; }
+        
+        /* Entity Detail */
+        .entity-detail {
+            padding: 10px; border-top: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.02);
+        }
+        .entity-detail-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+        .relation-item {
+            padding: 4px 0; font-size: 11px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .relation-arrow { color: #4fc3f7; }
+        
         /* Empty */
-        .empty { text-align: center; padding: 40px 20px; color: #666; }
-        .empty-icon { font-size: 40px; margin-bottom: 8px; opacity: 0.5; }
+        .empty { text-align: center; padding: 30px 16px; color: #666; }
+        .empty-icon { font-size: 32px; margin-bottom: 6px; opacity: 0.5; }
         
         /* Scrollbar */
-        .memory-list::-webkit-scrollbar, .date-list::-webkit-scrollbar { width: 4px; }
-        .memory-list::-webkit-scrollbar-thumb, .date-list::-webkit-scrollbar-thumb {
+        .memory-list::-webkit-scrollbar, .date-list::-webkit-scrollbar, .entity-list::-webkit-scrollbar { width: 3px; }
+        .memory-list::-webkit-scrollbar-thumb, .date-list::-webkit-scrollbar-thumb, .entity-list::-webkit-scrollbar-thumb {
             background: rgba(79,195,247,0.3); border-radius: 2px;
         }
     </style>
@@ -177,7 +201,7 @@
             
             <!-- Agent Switcher -->
             <div class="agent-switcher">
-                <span style="font-size: 13px; color: #888; margin-right: 8px;">Agent:</span>
+                <span style="font-size: 12px; color: #888;">Agent:</span>
                 <div id="agent-buttons"></div>
                 <button class="agent-add" onclick="addAgent()">+ 新建</button>
             </div>
@@ -186,11 +210,11 @@
             <div class="stats">
                 <div class="stat">
                     <div class="stat-value" id="stat-total">0</div>
-                    <div class="stat-label">总记忆</div>
+                    <div class="stat-label">记忆</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value" id="stat-dates">0</div>
-                    <div class="stat-label">日期</div>
+                    <div class="stat-value" id="stat-entities">0</div>
+                    <div class="stat-label">实体</div>
                 </div>
             </div>
         </header>
@@ -210,12 +234,12 @@
                     <div class="calendar-grid" id="calendar-grid"></div>
                 </div>
                 
-                <!-- Date List with counts -->
+                <!-- Date List -->
                 <div class="date-list" id="date-list"></div>
             </div>
 
-            <!-- Right: Memory List -->
-            <div class="panel">
+            <!-- Center: Memory List -->
+            <div class="panel memory-panel">
                 <div class="panel-header">
                     📝 <span id="current-agent-name">main</span> 的记忆
                 </div>
@@ -251,6 +275,27 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Right: Knowledge Graph -->
+            <div class="panel graph-panel">
+                <div class="panel-header">🕸️ 知识图谱</div>
+                
+                <!-- Entity Search -->
+                <div class="search-box">
+                    <input type="text" id="entity-search" placeholder="搜索实体..." onkeypress="if(event.key==='Enter')searchEntities()">
+                </div>
+                
+                <!-- Entity List -->
+                <div class="entity-list" id="entity-list">
+                    <div class="empty"><div class="empty-icon">🔗</div>加载中...</div>
+                </div>
+                
+                <!-- Entity Detail -->
+                <div class="entity-detail" id="entity-detail" style="display:none">
+                    <div class="entity-detail-title" id="entity-detail-title"></div>
+                    <div id="entity-relations"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -266,11 +311,13 @@
         let currentMonth = new Date().getMonth();
         let allMemories = [];
         let dateCounts = {};
+        let allEntities = [];
         
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             renderAgentButtons();
             loadMemories();
+            loadEntities();
         });
         
         // Render Agent Buttons
@@ -288,6 +335,7 @@
             selectedDate = today;
             renderAgentButtons();
             loadMemories();
+            loadEntities();
             document.getElementById('current-agent-name').textContent = agent;
         }
         
@@ -316,7 +364,6 @@
                 
                 // Update stats
                 document.getElementById('stat-total').textContent = allMemories.length;
-                document.getElementById('stat-dates').textContent = Object.keys(dateCounts).length;
                 
                 // Render
                 renderCalendar();
@@ -324,7 +371,21 @@
                 selectDate(selectedDate);
             } catch (e) {
                 console.error('加载失败:', e);
-                document.getElementById('memory-list').innerHTML = '<div class="empty">加载失败</div>';
+            }
+        }
+        
+        // Load Entities
+        async function loadEntities() {
+            try {
+                const resp = await fetch(`${API}/entities?agent=${currentAgent}`);
+                const data = await resp.json();
+                allEntities = data.entities || [];
+                
+                document.getElementById('stat-entities').textContent = allEntities.length;
+                renderEntities(allEntities);
+            } catch (e) {
+                console.error('加载实体失败:', e);
+                document.getElementById('entity-list').innerHTML = '<div class="empty">加载失败</div>';
             }
         }
         
@@ -342,13 +403,13 @@
             const lastDay = new Date(currentYear, currentMonth + 1, 0);
             const startDay = firstDay.getDay();
             
-            // Previous month days
+            // Previous month
             const prevLast = new Date(currentYear, currentMonth, 0).getDate();
             for (let i = startDay - 1; i >= 0; i--) {
                 html += `<div class="calendar-day other-month">${prevLast - i}</div>`;
             }
             
-            // Current month days
+            // Current month
             for (let day = 1; day <= lastDay.getDate(); day++) {
                 const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 const hasMem = dateCounts[dateStr] > 0;
@@ -363,7 +424,7 @@
                 html += `<div class="${classes}" onclick="selectDate('${dateStr}')">${day}</div>`;
             }
             
-            // Next month days
+            // Next month
             const endDay = lastDay.getDay();
             for (let i = 1; i < 7 - endDay; i++) {
                 html += `<div class="calendar-day other-month">${i}</div>`;
@@ -378,14 +439,14 @@
             const dates = Object.keys(dateCounts).sort((a, b) => b.localeCompare(a));
             
             if (!dates.length) {
-                container.innerHTML = '<div class="empty" style="padding: 20px;">暂无记忆</div>';
+                container.innerHTML = '<div class="empty" style="padding: 16px;">暂无记忆</div>';
                 return;
             }
             
             container.innerHTML = dates.map(date => `
                 <div class="date-item ${date === selectedDate ? 'active' : ''}" onclick="selectDate('${date}')">
-                    <span class="date-item-date">${formatDate(date)}</span>
-                    <span class="date-item-count">${dateCounts[date]} 条</span>
+                    <span>${formatDate(date)}</span>
+                    <span style="color:#888">${dateCounts[date]}</span>
                 </div>
             `).join('');
         }
@@ -393,17 +454,13 @@
         // Select Date
         function selectDate(date) {
             selectedDate = date;
-            
-            // Update UI
             renderCalendar();
             renderDateList();
             
-            // Update header
             document.getElementById('date-header').style.display = 'block';
             document.getElementById('current-date-val').textContent = formatDate(date);
             document.getElementById('current-date-count').textContent = `${dateCounts[date] || 0} 条记忆`;
             
-            // Filter memories
             const memories = allMemories.filter(m => (m.date || '').startsWith(date));
             renderMemories(memories);
         }
@@ -422,25 +479,65 @@
                     <div class="memory-content">${escapeHtml(m.content)}</div>
                     <div class="memory-meta">
                         <span class="type-badge ${m.type}">${getTypeLabel(m.type)}</span>
-                        <span>${(m.date || '').split('T')[0]}</span>
                     </div>
                 </div>
             `).join('');
         }
         
-        // Search
-        async function searchMemories() {
-            const q = document.getElementById('search-input').value.trim();
-            if (!q) {
-                selectDate(selectedDate);
+        // Render Entities
+        function renderEntities(entities) {
+            const container = document.getElementById('entity-list');
+            
+            if (!entities.length) {
+                container.innerHTML = '<div class="empty"><div class="empty-icon">🔗</div>暂无实体</div>';
                 return;
             }
+            
+            const icons = {tool: '🔧', project: '📦', concept: '💡', person: '👤'};
+            
+            container.innerHTML = entities.map(e => `
+                <div class="entity-item" onclick="showEntityDetail('${escapeHtml(e.name)}', '${e.entityType}')">
+                    <div class="entity-icon ${e.entityType}">${icons[e.entityType] || '📌'}</div>
+                    <div style="flex:1">
+                        <div class="entity-name">${escapeHtml(e.name)}</div>
+                        <div class="entity-meta">${e.entityType} · ${e.mentionCount || 1}次</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Show Entity Detail
+        function showEntityDetail(name, type) {
+            document.getElementById('entity-detail').style.display = 'block';
+            document.getElementById('entity-detail-title').textContent = name;
+            
+            // 搜索相关记忆
+            const related = allMemories.filter(m => 
+                (m.content || '').toLowerCase().includes(name.toLowerCase())
+            ).slice(0, 5);
+            
+            const relationsHTML = related.length 
+                ? related.map(m => `
+                    <div class="relation-item">
+                        <span>→</span>
+                        <span style="color:#4fc3f7;cursor:pointer" onclick="searchMemories('${name}')">${(m.content || '').substring(0, 30)}...</span>
+                    </div>
+                `).join('')
+                : '<div class="relation-item" style="color:#888">暂无关联记忆</div>';
+            
+            document.getElementById('entity-relations').innerHTML = relationsHTML;
+        }
+        
+        // Search
+        async function searchMemories(query) {
+            if (!query) query = document.getElementById('search-input').value.trim();
+            if (!query) { selectDate(selectedDate); return; }
             
             try {
                 const resp = await fetch(`${API}/memories/search`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({query: q, agent_id: currentAgent, limit: 30})
+                    body: JSON.stringify({query, agent_id: currentAgent, limit: 30})
                 });
                 const data = await resp.json();
                 
@@ -449,6 +546,17 @@
             } catch (e) {
                 console.error(e);
             }
+        }
+        
+        // Search Entities
+        async function searchEntities() {
+            const q = document.getElementById('entity-search').value.trim();
+            if (!q) { renderEntities(allEntities); return; }
+            
+            const filtered = allEntities.filter(e => 
+                (e.name || '').toLowerCase().includes(q.toLowerCase())
+            );
+            renderEntities(filtered);
         }
         
         // Add Memory
@@ -471,6 +579,7 @@
                 if (resp.ok) {
                     document.getElementById('new-memory').value = '';
                     loadMemories();
+                    loadEntities();
                 }
             } catch (e) {
                 console.error(e);
